@@ -5,6 +5,16 @@ echo "========================================"
 echo "Iniciando MDTest..."
 echo "========================================"
 
+# ARREGLAR MPM: Desactivar mpm_event en tiempo de ejecución
+# (Railway podría estar usando imagen en caché)
+echo "Configurando Apache MPM..."
+a2dismod mpm_event mpm_worker 2>/dev/null || true
+a2enmod mpm_prefork rewrite 2>/dev/null || true
+
+# Verificar que solo hay un MPM activo
+echo "MPMs activos:"
+ls -la /etc/apache2/mods-enabled/mpm_* 2>/dev/null || echo "Ninguno encontrado"
+
 # Configurar Apache para usar el puerto correcto (Railway asigna PORT)
 if [ -n "$PORT" ]; then
     echo "Configurando puerto $PORT para Railway..."
@@ -45,6 +55,18 @@ else
     echo "✗ ERROR: No se encontraron archivos del proyecto"
     exit 1
 fi
+
+# Verificar configuración de Apache antes de iniciar
+echo "Verificando configuración de Apache..."
+apache2ctl configtest || {
+    echo "✗ ERROR en configuración de Apache"
+    echo "Intentando corregir..."
+    # Último recurso: forzar solo mpm_prefork
+    rm -f /etc/apache2/mods-enabled/mpm_*
+    ln -s /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/
+    ln -s /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/
+    apache2ctl configtest
+}
 
 # Iniciar Apache
 echo "========================================"
