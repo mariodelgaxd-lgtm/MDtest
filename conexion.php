@@ -3,8 +3,9 @@ $servername = getenv('DB_HOST') ?: 'localhost';
 $username = getenv('DB_USER') ?: 'root';
 $password = getenv('DB_PASS') ?: '';
 $dbname = getenv('DB_NAME') ?: 'mdtest2';
+$port = getenv('DB_PORT') ?: '3306';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
 $conn->set_charset("utf8mb4");
 
 if ($conn->connect_error) {
