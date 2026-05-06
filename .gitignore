@@ -1,0 +1,34 @@
+# Archivos de configuración local
+.env
+
+# Dependencias
+vendor/
+node_modules/
+
+# Logs
+*.log
+error_log
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de caché
+*.cache
+
+# Imágenes de preguntas (se suben manualmente o se generan)
+# Descomenta la siguiente línea si no quieres subir las imágenes a GitHub
+# imagenes_preguntas/
+
+# Docker
+.docker/
+
+# Base de datos local
+*.sql.gz
+*.backup

@@ -1,0 +1,21 @@
+esto es una plataforma web de e-learning adaptativo diseñada para revolucionar la forma en que los alumnos de autoescuela se preparan para el examen teórico de conducir. A diferencia de las plataformas tradicionales que generan tests completamente aleatorios, este proyecto implementa inteligencia de datos para crear una experiencia de estudio personalizada, eficiente y motivadora.
+
+El proyecto destaca por tres pilares fundamentales que lo elevan al nivel de una aplicación profesional:
+
+🧠 1. Algoritmo de Repaso Espaciado (Spaced Repetition)
+El "cerebro" de la aplicación. El sistema rastrea cada respuesta del usuario y guarda un registro detallado de sus fallos. Utilizando un algoritmo de repaso espaciado, la plataforma calcula automáticamente una "Fecha de Próximo Repaso" para las preguntas falladas.
+
+Si un alumno falla una pregunta, el sistema se la volverá a mostrar al día siguiente.
+
+Si la acierta, el sistema espaciará su aparición (a 3 días, 7 días, o un mes) hasta asegurar la retención a largo plazo.
+De esta forma, los nuevos tests se construyen dinámicamente mezclando preguntas nuevas con los fallos que el alumno "necesita" repasar hoy.
+
+🎮 2. Gamificación y Retención de Usuarios
+Para combatir la frustración y el abandono del estudio, la plataforma integra un sistema de gamificación:
+
+Sistema de Rachas (Streaks): Premia la constancia del usuario contando los tests aprobados consecutivamente. Alcanzar una racha de 30 desbloquea el acceso a un "Simulacro de Examen Final".
+
+Galería de Logros: Los alumnos desbloquean medallas (ej. Primera Sangre, Test Perfecto, Racha de Fuego) al cumplir ciertos hitos, las cuales se almacenan en su base de datos y se exponen en su perfil.
+
+📊 3. Dashboard Analítico Moderno
+El panel de control del alumno (perfil.php) ofrece un análisis visual de su rendimiento. Identifica automáticamente los "Temas a Repasar" (Focus Areas) basándose en la tasa de error por categoría (ej. Señales, Prioridad de paso), mostrando barras de progreso que indican visualmente dónde debe centrar su estudio.

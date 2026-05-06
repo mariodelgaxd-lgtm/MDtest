@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: mdtest-web
+    runtime: docker
+    repo: https://github.com/tu-usuario/mdtest
+    branch: main
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_HOST
+        fromService:
+          type: pserv
+          name: mdtest-db
+          property: host
+      - key: DB_PORT
+        fromService:
+          type: pserv
+          name: mdtest-db
+          property: port
+      - key: DB_USER
+        value: mdtest_user
+      - key: DB_PASS
+        generateValue: true
+      - key: DB_NAME
+        value: mdtest2
+
+  - type: pserv
+    name: mdtest-db
+    runtime: docker
+    repo: https://github.com/tu-usuario/mdtest
+    branch: main
+    plan: free
+    dockerfilePath: ./Dockerfile.db
+    disk:
+      name: mdtest-data
+      mountPath: /var/lib/mysql
+      sizeGB: 1
+    envVars:
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+      - key: MYSQL_DATABASE
+        value: mdtest2
+      - key: MYSQL_USER
+        value: mdtest_user
+      - key: MYSQL_PASSWORD
+        fromService:
+          type: web
+          name: mdtest-web
+          envVarKey: DB_PASS
